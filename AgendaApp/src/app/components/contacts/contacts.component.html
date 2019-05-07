@@ -1,0 +1,220 @@
+
+<div >
+  <br >
+  &nbsp; <button type="button" class="btn loat-lg-right btn-outline-warning" data-toggle="modal" data-target="#exampleModal">&nbsp;
+    Nuevo Contacto
+  </button>
+  &nbsp;<button type="button" class="btn btn-outline-warning loat-lg-right" data-toggle="modal" data-target="#eventos">&nbsp;
+    Próximos Eventos
+  </button>
+  <br >
+  <hr >
+</div>
+
+<!-- Modal Nuevo Contacto-->
+<div class="modal fade bd-example-modal-lg" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-lg" role="document">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title" id="exampleModalLabel">Agregar nuevo Contacto</h5>
+          <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+          </button>
+        </div>
+        <div class="modal-body">
+            <form #registerForm="ngForm" (ngSubmit)="newContact()" style="margin: 25px;">
+
+                <div class="form-group">
+                  <label for="nombre">Nombre</label>
+                  <input type="text" name="nombre" #nombre="ngModel"  [(ngModel)]="contact.nombre" class="form-control" id="nombre" placeholder="Enter nombre">
+                </div>
+              
+                <div class="form-group">
+                  <label for="apellido">Apellido</label>
+                  <input type="text" name="apellido" #apellido="ngModel"  [(ngModel)]="contact.apellido" class="form-control" id="apellido" placeholder="Enter apellido">
+                </div>
+              
+                <div class="form-group">
+                  <label for="apodo">Apodo</label>
+                  <input type="text" name="apodo" #apodo="ngModel"  [(ngModel)]="contact.apodo" class="form-control" id="apodo" placeholder="Enter apodo">
+                </div>
+              
+                <div class="form-group">
+                  <label for="direccion">Dirección</label>
+                  <input type="text" name="direccion" #direccion="ngModel" class="form-control" [(ngModel)]="contact.direccion" id="direccion" placeholder="Direccion">
+                </div>
+
+                <div class="form-group">
+                  <label for="email">Email</label>
+                  <input type="email" name="email" #email="ngModel" class="form-control" [(ngModel)]="contact.correo"
+                    id="email" placeholder="Email">
+                </div>
+                
+                <div class="form-group">
+                  <label for="birthday">Birthday</label>
+                  <input type="date" name="birthday" #birthday="ngModel" class="form-control" [(ngModel)]="contact.birthday"
+                    id="birthday" placeholder="Birthday">
+                </div>
+
+                <div class="form-group">
+                  <label for="telefono">Teléfono</label>
+                  <input type="text" name="telefono" #telefono="ngModel"  [(ngModel)]="contact.telefono" class="form-control" id="telefono" placeholder="Telefono">
+                </div>
+
+              
+                <button type="submit" class="btn btn-primary">Submit</button>&nbsp;
+                <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+              </form>
+        </div>
+      </div>
+    </div>
+  </div>
+  
+
+<!-- Modal Edit Contacto-->
+<div class="modal fade bd-example-modal-lg" id="editModal" tabindex="-1" role="dialog" aria-labelledby="editModalLabel" aria-hidden="true">
+  <div class="modal-dialog modal-lg" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="exampleModalLabel">Editar Contacto</h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+          <form #editForm="ngForm"  (ngSubmit)="editContact(contact._id)" style="margin: 25px;">
+
+              <div class="form-group">
+                <label for="nombre">Nombre</label>
+                <input type="text" name="nombre" #nombre="ngModel"  [(ngModel)]="contact.nombre" class="form-control" id="nombre" placeholder="Enter nombre">
+              </div>
+            
+              <div class="form-group">
+                <label for="apellido">Apellido</label>
+                <input type="text" name="apellido" #apellido="ngModel"  [(ngModel)]="contact.apellido" class="form-control" id="apellido" placeholder="Enter apellido">
+              </div>
+            
+              <div class="form-group">
+                <label for="apodo">Apodo</label>
+                <input type="text" name="apodo" #apodo="ngModel"  [(ngModel)]="contact.apodo" class="form-control" id="apodo" placeholder="Enter apodo">
+              </div>
+            
+              <div class="form-group">
+                <label for="direccion">Dirección</label>
+                <input type="text" name="direccion" #direccion="ngModel" class="form-control" [(ngModel)]="contact.direccion" id="direccion" placeholder="Direccion">
+              </div>
+
+              <div class="form-group">
+                <label for="email">Email</label>
+                <input type="email" name="email" #email="ngModel" class="form-control" [(ngModel)]="contact.correo"
+                  id="email" placeholder="Email">
+              </div>
+              
+              <div class="form-group">
+                <label for="birthday">Birthday</label>
+                <input type="date" name="birthday" #birthday="ngModel" class="form-control" [(ngModel)]="contact.birthday"
+                  id="birthday" placeholder="Birthday">
+              </div>
+
+              <div class="form-group">
+                <label for="telefono">Teléfono</label>
+                <input type="text" name="telefono" #telefono="ngModel"  [(ngModel)]="contact.telefono" class="form-control" id="telefono" placeholder="Telefono">
+              </div>
+
+              <div class="input-group mb-3">
+                <div class="input-group-prepend">
+                  <span class="input-group-text" id="inputGroupFileAddon01">Upload</span>
+                </div>
+                <div class="custom-file">
+                  <input type="file" class="custom-file-input" id="inputGroupFile01" aria-describedby="inputGroupFileAddon01"
+                    (change)="fileChangeEvent($event)">
+                  <label class="custom-file-label" for="inputGroupFile01">Choose Image Profile</label>
+                </div>
+              </div>
+
+
+              <button type="submit" class="btn btn-primary">Submit</button>&nbsp;
+              <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+            </form>
+      </div>
+    </div>
+  </div>
+</div>
+
+
+
+<!-- Modal Proximos eventos-->
+<div class="modal fade bd-example-modal-lg" id="eventos" tabindex="-1" role="dialog" aria-labelledby="eventos" aria-hidden="true">
+  <div class="modal-dialog modal-xl" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="exampleModalLabel">Próximos eventos</h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+          <form #registerForm="ngForm" (ngSubmit)="congratMail()" style="margin: 25px;">
+
+            <div class="row  justify-content-center" *ngFor="let contact of contacts">
+              <div class="col-sm-8" >
+                  <div class="card mb-3 " >
+                      <div class="row no-gutters">
+                        <div class="col-md-4">
+                          <img src="{{ url + 'obtener-imagen-usuario/' + contact.imagen }}" class="card-img" alt="...">
+                        </div>
+                        <div class="col-md-8">
+                          <div class="card-body text-right">
+                            <h5 class="card-title">{{contact.nombre}}, {{contact.apellido}}</h5>
+                            <p class="card-text">Teléfono: {{contact.telefono}}, Email: {{contact.correo}}</p>
+                            <p class="card-text">Dirección: {{contact.direccion}}, Apodo: {{contact.apodo}}</p>
+                            <p class="card-text">ID: {{contact._id}}</p>
+                            <p class="card-text">Fecha de nacimiento: {{contact.birthday}}</p>
+                            <div class="btn-group">
+                              &nbsp; <button type="button" class="btn loat-lg-right btn-outline-warning" data-toggle="modal" data-target="#editModal">&nbsp;
+                                Edit                              </button>
+                              &nbsp;<p class="card-text"><small class="text-muted"><button class="btn btn-outline-warning" (click)="congratMail()">Send Email</button></small></p>
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+              </div>
+          </div>
+              <button type="submit" class="btn btn-primary">Enviar Correo de felicitación!</button>&nbsp;
+              <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+            </form>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!--Contactos-->
+
+  <div class="row  justify-content-center" *ngFor="let contact of contacts">
+      <div class="col-sm-8" >
+          <div class="card mb-3 " >
+              <div class="row no-gutters">
+                <div class="col-md-4">
+                  <img src="{{ url + 'obtener-imagen-usuario/' + contact.imagen }}" class="card-img" alt="...">
+                </div>
+                <div class="col-md-8">
+                  <div class="card-body text-right">
+                    <h5 class="card-title">{{contact.nombre}}, {{contact.apellido}}</h5>
+                    <p class="card-text">Teléfono: {{contact.telefono}}, Email: {{contact.correo}}</p>
+                    <p class="card-text">Dirección: {{contact.direccion}}, Apodo: {{contact.apodo}}</p>
+                    <p class="card-text">ID: {{contact._id}}</p>
+                    <p class="card-text">Fecha de nacimiento: {{contact.birthday}}</p>
+                    <div class="btn-group">
+                      <p class="card-text"><small class="text-muted"><button class="btn btn-outline-primary" (click)="editContact(contact._id)">Send Email</button></small></p>
+                      &nbsp;<p class="card-text"><small class="text-muted"><button type="button" class="btn btn-outline-warning" data-toggle="modal" (click)="getContact(contact._id)" data-target="#editModal">&nbsp;
+                          Editar
+                        </button></small></p>
+                      &nbsp;<p class="card-text"><small class="text-muted"><button class="btn btn-outline-danger" (click)="deleteContact(contact._id)">Delete</button></small></p>                    
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+      </div>
+  </div>

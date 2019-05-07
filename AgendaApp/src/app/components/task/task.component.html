@@ -1,0 +1,165 @@
+<div >
+  <br >
+  &nbsp; <button type="button" class="btn loat-lg-right btn-outline-warning" data-toggle="modal" data-target="#newTaskModal">&nbsp;
+    Nueva Tarea
+  </button>
+  <!-- &nbsp;<button type="button" class="btn btn-outline-warning loat-lg-right" data-toggle="modal" data-target="#eventos">&nbsp;
+    Próximos Eventos
+  </button> -->
+  <br >
+  <hr >
+</div>
+
+<!--Nueva Tarea Modal-->
+<div class="modal fade bd-example-modal-lg" id="newTaskModal" tabindex="-1" role="dialog" aria-labelledby="newTaskModalLabel" aria-hidden="true">
+  <div class="modal-dialog modal-lg" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="exampleModalLabel">Agregar nueva Tarea</h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+          <form #registerForm="ngForm" (ngSubmit)="newTask()" style="margin: 25px;">
+
+              <div class="form-group">
+                <label for="titulo">Titulo</label>
+                <input type="text" name="titulo" #titulo="ngModel"  [(ngModel)]="task.titulo" class="form-control" id="titulo" placeholder="Enter Title">
+              </div>
+            
+              <div class="form-group">
+                <label for="descripcion">Descripcion</label>
+                <textarea class="form-control" id="descripcion" name="descripcion" #descripcion="ngModel"  [(ngModel)]="task.descripcion"rows="3" placeholder="Enter Description"></textarea>
+              </div>
+            
+              <div class="form-group">
+                <label for="lugar">Lugar</label>
+                <input type="text" name="lugar" #lugar="ngModel"  [(ngModel)]="task.lugar" class="form-control" id="lugar" placeholder="Enter Place">
+              </div>
+              
+              <div class="form-group">
+                <label for="fechaInicio">Fecha de Inicio</label>
+                <input type="date" name="fechaInicio" #fechaInicio="ngModel" class="form-control" [(ngModel)]="task.fechaInicio"
+                  id="fechaInicio">
+              </div>
+
+              <div class="form-group">
+                <label for="fechaFin">Fecha de Finalización</label>
+                <input type="date" name="fechaFin" #fechaFin="ngModel" class="form-control" [(ngModel)]="task.fechaFin"
+                  id="fechaFin">
+              </div>
+              <button type="submit" class="btn btn-primary">Submit</button>&nbsp;
+              <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+            </form>
+      </div>
+    </div>
+  </div>
+</div>
+
+
+
+
+<!--Editar Tarea Modal-->
+<div class="modal fade bd-example-modal-lg" id="editTaskModal" tabindex="-1" role="dialog" aria-labelledby="editTaskModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-lg" role="document">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title" id="exampleModalLabel">Editar Tarea</h5>
+          <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+          </button>
+        </div>
+        <div class="modal-body">
+            <form #registerForm="ngForm" (ngSubmit)="editTask(task._id)" style="margin: 25px;">
+  
+                <div class="form-group">
+                  <label for="titulo">Titulo</label>
+                  <input type="text" name="titulo" #titulo="ngModel"  [(ngModel)]="task.titulo" class="form-control" id="titulo" placeholder="Enter Title">
+                </div>
+              
+                <div class="form-group">
+                  <label for="descripcion">Descripcion</label>
+                  <textarea class="form-control" id="descripcion" name="descripcion" #descripcion="ngModel"  [(ngModel)]="task.descripcion"rows="3" placeholder="Enter Description"></textarea>
+                </div>
+              
+                <div class="form-group">
+                  <label for="lugar">Lugar</label>
+                  <input type="text" name="lugar" #lugar="ngModel"  [(ngModel)]="task.lugar" class="form-control" id="lugar" placeholder="Enter Place">
+                </div>
+                
+                <div class="form-group">
+                  <label for="fechaInicio">Fecha de Inicio</label>
+                  <input type="date" name="fechaInicio" #fechaInicio="ngModel" class="form-control" [(ngModel)]="task.fechaInicio"
+                    id="fechaInicio">
+                </div>
+  
+                <div class="form-group">
+                  <label for="fechaFin">Fecha de Finalización</label>
+                  <input type="date" name="fechaFin" #fechaFin="ngModel" class="form-control" [(ngModel)]="task.fechaFin"
+                    id="fechaFin">
+                </div>
+                <button type="submit" class="btn btn-primary">Submit</button>&nbsp;
+                <!-- &nbsp;<p class="card-text"><small class="text-muted"><button class="btn btn-outline-danger" (click)="deleteTask(task._id)">Delete</button></small></p>                                 -->
+                <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+              </form>
+        </div>
+      </div>
+    </div>
+  </div>
+
+
+  <div class="modal" tabindex="-1" role="dialog" id="deleteModal">
+      <div class="modal-dialog" role="document">
+        <div class="modal-content">
+          <div class="modal-header">
+            <h5 class="modal-title">Eliminar Tarea</h5>
+            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+              <span aria-hidden="true">&times;</span>
+            </button>
+          </div>
+          <div class="modal-body">
+            <form #registerForm="ngForm" (ngSubmit)="deleteTask(task._id)" style="margin: 25px;">
+              <p>Desea eliminar la tarea {{task.titulo}}</p>
+              <div class="btn-group">
+                  <button type="button" class="btn btn-secondary" data-dismiss="modal">No</button>
+                  &nbsp;<button type="submit" class="btn btn-primary">Sí, quiero eliminarlo</button>
+              </div>
+            </form>
+          </div>
+        </div>
+      </div>
+    </div>
+
+
+
+
+<!--Tareas-->
+
+<div class="row  justify-content-center" *ngFor="let task of tasks">
+  <div class="col-sm-8" >
+      <div class="card mb-3 " >
+          <div class="row no-gutters">
+            <div class="col-md-12">
+              <div class="card-body text-left">
+                <h5 class="card-title">{{task.titulo}}</h5>
+                <p class="card-text">Descripcion: {{task.descripcion}}</p>
+                <p class="card-text">Fecha Inicio: {{task.fechaInicio}}, Fecha Fin: {{task.fechaFin}}</p>
+                <p class="card-text">ID: {{task._id}}</p>
+                <p class="card-text">Lugar: {{task.lugar}}</p>
+                
+                <div class="btn-group">
+                    &nbsp; <button type="button" class="btn btn-outline-warning" data-toggle="modal" (click)="getTask(task._id)" data-target="#editTaskModal">&nbsp;
+                        Editar
+                      </button>
+                  <!-- &nbsp;<p class="card-text"><small class="text-muted"><button class="btn btn-outline-danger" (click)="deleteTask(task._id)">Delete</button></small></p>                                 -->
+                  &nbsp;<button type="button" class="btn btn-outline-danger" data-toggle="modal" (click)="getTask(task._id)" data-target="#deleteModal">&nbsp;
+                      Delete
+                    </button>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+  </div>
+</div>
