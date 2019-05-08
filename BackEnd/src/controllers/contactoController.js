@@ -103,7 +103,7 @@ function subirImagen(req, res) {
             Contacto.findByIdAndUpdate(contactId, {imagen: file_name}, {new: true}, (err, contactoActualizado)=>{
                 if(err) return res.status(500).send({message: 'Error en la petición'});
                 if(!contactoActualizado) return res.status(404).send({message: 'No se ha podido actualizar el contacto'});
-                return res.status(200).send({contact: contactoActualizado});
+                return res.status(200).send({contacto: contactoActualizado});
             });
         }else{
             return removeFillerOfUpload(res, file_path, 'Extensión no válida');
@@ -120,7 +120,7 @@ function removeFillerOfUpload(res, file_path, message) {
 
 function getImageFile(req, res) {
     var image_file = req.params.imageFile;
-    var path_file = './src/uploads/users/' + image_file;
+    var path_file = './src/uploads/contacts/' + image_file;
     fs.exists(path_file, (exists)=>{
         if(exists){
             res.sendFile(path.resolve(path_file));

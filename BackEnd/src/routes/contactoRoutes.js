@@ -6,7 +6,7 @@ var md_auth = require('../middleware/authentification');
 
 //SUBIR IMAGEN
 var multiparty = require("connect-multiparty");
-var md_upload = multiparty({uploadDir: './src/uploads/users'});
+var md_upload = multiparty({uploadDir: './src/uploads/contacts'});
 
 var api = express.Router();
 api.get('/list-contacts',md_auth.ensureAuth, contactoController.verContactos);

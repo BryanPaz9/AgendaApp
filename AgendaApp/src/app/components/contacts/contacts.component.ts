@@ -28,14 +28,13 @@ export class ContactsComponent implements OnInit {
     private _uploadService: UploadService
     ) {
     this.contact = new Contact("","","","","","","","",null);
-    this.identity = this._userService.getIdentity;
-    this.token = this._userService.getToken;
+    this.identity = this._userService.getIdentity();
+    this.token = this._userService.getToken();
     this.url = GLOBAL.url;
    }
 
   ngOnInit() {
     this.getContacts();
-    console.log(this.getContacts());
     //   response=>{
     //   if(response){
     //     console.log(response);
@@ -72,7 +71,6 @@ export class ContactsComponent implements OnInit {
     this._contactService.getContacts().subscribe( res=>{
       this.contacts = res.contactoFind;
       console.log(res.contactoFind);
-      console.log(this.contact._id);
     });
   }
 
@@ -102,12 +100,12 @@ export class ContactsComponent implements OnInit {
   editContact(id){
     this._contactService.updateContact(id, this.contact).subscribe(
       response=>{
-        if(!response.contact) this.status = "error"
+        if(!response.contacto) this.status = "error"
         else{
           this.status = "ok";
-          this.getContacts();
-          console.log(this.getContact(this.contact._id));
-          sessionStorage.setItem("identity", JSON.stringify(this.contact));
+          console.log(response.contacto);
+          this.contact = response.contacto;
+          //          sessionStorage.setItem("identity", JSON.stringify(this.contact));
           // this.identity = this.contact;
 
      //     SUB IMG CONTACT
@@ -127,7 +125,7 @@ export class ContactsComponent implements OnInit {
         this.getContacts();
       },
       error=>{
-
+        console.log(<any>error);
       }
     );
   }
