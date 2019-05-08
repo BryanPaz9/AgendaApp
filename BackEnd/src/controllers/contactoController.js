@@ -1,5 +1,5 @@
 'use strict'
-
+const nodemailer = require('nodemailer');
 var Contacto = require('../models/contacto');
 var path = require('path');
 var fs = require ('fs');
@@ -10,6 +10,40 @@ function verContactos(req, res){
         if(err) return res.status(500).send({message: 'Error al traer los datos'});
         if(!contactoFind) return res.status(400).send({message: 'ERROR400'});
         if(contactoFind) return res.status(200).send({contactoFind: contactoFind});
+    })
+}
+
+function sendEmail(req, res){
+    var params = req.body;
+
+
+    let transporter = nodemailer.createTransport({
+        // host: 'smtp.gmail.com',
+        service: 'hotmail',
+        // port: 587,
+        // secure: false,
+        // requireTLS: true,
+        auth: {
+            user: params.email,
+            pass: params.password
+        }
+    });
+    let mailOptions = {
+        from: `"${params.userName}" <${params.email}>`, // sender address
+        to: `"${params.toEmail}"`,// list of receivers
+        subject: `"${params.asunto}"`, // Subject line
+        // text: "Hello world?", // plain text body
+        html: `
+        <strong>Nombre:</strong>"${params.userName}" <br/>
+        <strong>Email:</strong>"${params.toEmail}" <br/>
+        <strong>Mensaje:</strong>"${params.asunto}" 
+        
+        `
+      };
+    transporter.sendMail(mailOptions,(error,info)=>{
+        if(error)return res.status(500).send(error);
+        //res.status(200).send({message:'Correo enviado'});
+        if(info) return res.status(200).send({message:'Correo enviado'+ info.response});
     })
 }
 
@@ -49,6 +83,8 @@ function crearContacto(req,res){
         return res.status(200).send({message: 'Rellene los campos necesarios'});
     }
 }
+
+
 
 function getContacto(req,res){
     var contactoId = req.params.id;
@@ -138,5 +174,6 @@ module.exports ={
     subirImagen,
     removeFillerOfUpload,
     getImageFile,
-    getContacto
+    getContacto,
+    sendEmail
 }

@@ -54,6 +54,14 @@ export class ContactService {
         // let params = JSON.stringify(task);
         let headers = new HttpHeaders().set('Content-Type', 'application/json').set('Authorization',this.getToken());
         return this._http.delete(this.url+'delete-contact/'+id,{headers: headers});
-      }
+    }
+
+    sendEmail(form){
+        //  let params = JSON.stringify(req.body);
+        let headers = new HttpHeaders().set('Content-Type','application/json').set('Authorization', this.getToken());
+        return this._http.post(this.url+'email', form, {headers: headers});
+    }
+
+
 }
 

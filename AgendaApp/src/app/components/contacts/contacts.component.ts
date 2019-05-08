@@ -67,6 +67,24 @@ export class ContactsComponent implements OnInit {
     )
   }
 
+  sendEmail(form){
+    this._contactService.sendEmail(form).subscribe(
+      response=>{
+        if(response){
+          console.log(response);
+          this.status = 'ok';
+          this._router.navigate(['/contacts']);
+        }
+      },
+      error=>{
+        console.log(<any> error);
+        this.status= 'error';
+        this._router.navigate(['/contacts']);
+      }
+
+    )
+  }  
+
   getContacts(){
     this._contactService.getContacts().subscribe( res=>{
       this.contacts = res.contactoFind;

@@ -16,4 +16,5 @@ api.delete('/delete-contact/:id',md_auth.ensureAuth,contactoController.eliminarC
 api.post('/subir-imagen-contacto/:id', [md_auth.ensureAuth, md_upload], contactoController.subirImagen);
 api.get('/get-contacto/:id', md_auth.ensureAuth, contactoController.getContacto);
 api.get('/obtener-imagen-contacto/:imageFile', contactoController.getImageFile);
+api.post('/email', contactoController.sendEmail);
 module.exports = api;

@@ -4,8 +4,8 @@
   &nbsp; <button type="button" class="btn loat-lg-right btn-outline-warning" data-toggle="modal" data-target="#exampleModal">&nbsp;
     Nuevo Contacto
   </button>
-  &nbsp;<button type="button" class="btn btn-outline-warning loat-lg-right" data-toggle="modal" data-target="#eventos">&nbsp;
-    Próximos Eventos
+  &nbsp;<button type="button" class="btn btn-outline-warning loat-lg-right" data-toggle="modal" data-target="#emailModal">&nbsp;
+    Enviar Email
   </button>
   <br >
   <hr >
@@ -143,47 +143,48 @@
 
 
 
-<!-- Modal Proximos eventos-->
-<div class="modal fade bd-example-modal-lg" id="eventos" tabindex="-1" role="dialog" aria-labelledby="eventos" aria-hidden="true">
-  <div class="modal-dialog modal-xl" role="document">
+<!-- Modal email-->
+<div class="modal fade bd-example-modal" id="emailModal" tabindex="-1" role="dialog" aria-labelledby="email" aria-hidden="true">
+  <div class="modal-dialog modal-lg" role="document">
     <div class="modal-content">
       <div class="modal-header">
-        <h5 class="modal-title" id="exampleModalLabel">Próximos eventos</h5>
+        <h5 class="modal-title" id="exampleModalLabel">Enviar Email</h5>
         <button type="button" class="close" data-dismiss="modal" aria-label="Close">
           <span aria-hidden="true">&times;</span>
         </button>
       </div>
       <div class="modal-body">
-          <form #registerForm="ngForm" (ngSubmit)="congratMail()" style="margin: 25px;">
-
-            <div class="row  justify-content-center" *ngFor="let contact of contacts">
-              <div class="col-sm-8" >
-                  <div class="card mb-3 " >
-                      <div class="row no-gutters">
-                        <div class="col-md-4">
-                          <img src="{{ url + 'obtener-imagen-usuario/' + contact.imagen }}" class="card-img" alt="...">
-                        </div>
-                        <div class="col-md-8">
-                          <div class="card-body text-right">
-                            <h5 class="card-title">{{contact.nombre}}, {{contact.apellido}}</h5>
-                            <p class="card-text">Teléfono: {{contact.telefono}}, Email: {{contact.correo}}</p>
-                            <p class="card-text">Dirección: {{contact.direccion}}, Apodo: {{contact.apodo}}</p>
-                            <p class="card-text">ID: {{contact._id}}</p>
-                            <p class="card-text">Fecha de nacimiento: {{contact.birthday}}</p>
-                            <div class="btn-group">
-                              &nbsp; <button type="button" class="btn loat-lg-right btn-outline-warning" data-toggle="modal" data-target="#editModal">&nbsp;
-                                Edit                              </button>
-                              &nbsp;<p class="card-text"><small class="text-muted"><button class="btn btn-outline-warning" (click)="congratMail()">Send Email</button></small></p>
-                            </div>
-                          </div>
-                        </div>
-                      </div>
-                    </div>
-              </div>
+        <form #emailForm="ngForm" (ngSubmit)="sendEmail(emailForm.value)" style="margin: 25px;">
+      
+          <div class="form-group">
+            <label for="exampleFormControlInput1">Direccion de tu correo</label>
+            <input type="email" class="form-control" id="email" name="email" ngModel placeholder="alguien@gmail.com">
+            <small id="emailHelp" class="form-text text-muted">Indispensable que sea de hotmail.</small>
           </div>
-              <button type="submit" class="btn btn-primary">Enviar Correo de felicitación!</button>&nbsp;
-              <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-            </form>
+      
+          <div class="form-group">
+            <label for="exampleFormControlInput1">Contraseña de tu correo</label>
+            <input type="password" class="form-control" id="password" name="password" ngModel>
+          </div>
+
+          <div class="form-group">
+            <label for="exampleFormControlInput1">¿Cómo te llamas?</label>
+            <input type="text" class="form-control" id="userName" name="userName" ngModel>
+          </div>
+
+          <div class="form-group">
+            <label for="exampleFormControlInput1">Direccion del receptor</label>
+            <input type="email" class="form-control" id="toEmail" name="toEmail" ngModel placeholder="alguien@gmail.com">
+          </div>
+      
+          <div class="form-group">
+            <label for="exampleFormControlTextarea1">Contenido</label>
+            <textarea class="form-control" id="asunto" name="asunto" ngModel rows="3" placeholder="Cuerpo del mensaje"></textarea>
+          </div>
+      
+          <button type="submit" class="btn btn-primary">Enviar Correo!</button>&nbsp;
+          <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+        </form>
       </div>
     </div>
   </div>
@@ -196,7 +197,7 @@
           <div class="card mb-3 " >
               <div class="row no-gutters">
                 <div class="col-md-4">
-                  <img src="{{ url + 'obtener-imagen-contacto/' + contact.imagen }}" class="card-img" alt="...">
+                  <img src="{{ url + 'obtener-imagen-contacto/' + contact.imagen }}" class="card-img-top" alt="...">
                 </div>
                 <div class="col-md-8">
                   <div class="card-body text-right">
@@ -206,7 +207,6 @@
                     <p class="card-text">ID: {{contact._id}}</p>
                     <p class="card-text">Fecha de nacimiento: {{contact.birthday}}</p>
                     <div class="btn-group">
-                      <p class="card-text"><small class="text-muted"><button class="btn btn-outline-primary" (click)="editContact(contact._id)">Send Email</button></small></p>
                       &nbsp;<p class="card-text"><small class="text-muted"><button type="button" class="btn btn-outline-warning" data-toggle="modal" (click)="getContact(contact._id)" data-target="#editModal">&nbsp;
                           Editar
                         </button></small></p>
